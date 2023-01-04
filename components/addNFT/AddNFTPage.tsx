@@ -16,11 +16,14 @@ export default function AddNFTPage({ wishlistId }: AddNFTPageProps) {
   const router = useRouter();
   const [showValid, setShowValid] = useState(false);
   const [showError, setShowError] = useState(false);
-  const addToWishlistMutation = useMutation(
-    (newWishlistItem: AddToWishlistProps) => {
+  const addToWishlistMutation = useMutation({
+    mutationFn: (newWishlistItem: AddToWishlistProps) => {
       return addToWishlist(newWishlistItem);
-    }
-  );
+    },
+    onSuccess: () => {
+      router.push(`/wishlist/${wishlistId}`);
+    },
+  });
 
   const onSaveClick = () => {
     const parts = url.split("/");
@@ -37,7 +40,6 @@ export default function AddNFTPage({ wishlistId }: AddNFTPageProps) {
     if (isValid(url)) {
       setShowValid(true);
       addToWishlistMutation.mutate(newWishlistItem);
-      router.push(`/wishlist/${wishlistId}`);
     } else {
       setShowError(true);
     }

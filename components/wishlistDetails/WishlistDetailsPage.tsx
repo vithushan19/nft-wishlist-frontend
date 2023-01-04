@@ -25,7 +25,7 @@ export default function WishlistDetailsPage({
   const { data: wishlistData, status } = fetchWishlistQuery(wishlistId);
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full text-white">
       {wishlistData ? (
         <h1 className="w-full p-4 text-4xl font-bold text-white bg-sky-800">
           {wishlistData.name}

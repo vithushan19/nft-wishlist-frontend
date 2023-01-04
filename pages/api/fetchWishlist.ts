@@ -22,16 +22,35 @@ export default async function fetchWishlist(wishlistId: string) {
 async function fetchTokenData(contract_address: string, token_id: string) {
   const tokens = contract_address + ":" + token_id;
   const TOKEN_URL = "https://api.reservoir.tools/tokens/v5?tokens=" + tokens;
-  const tokenRes = await fetch(TOKEN_URL);
-  const tokenJSON: TokenResponse = await tokenRes.json();
+  return await fetch(TOKEN_URL)
+    .then((res) => res.json())
+    .then(
+      (data) => {
+        const name = data.tokens[0].token.name;
+        const image = data.tokens[0].token.image;
+        const collection = data.tokens[0].token.collection.name;
 
-  const name = tokenJSON.tokens[0].token.name;
-  const image = tokenJSON.tokens[0].token.image;
-  const collection = tokenJSON.tokens[0].token.collection.name;
+        const mappedItem = {
+          name,
+          image,
+          collection,
+          contract_address,
+          token_id,
+        };
 
-  const mappedItem = { name, image, collection, contract_address, token_id };
-
-  return mappedItem;
+        return mappedItem;
+      },
+      (error) => {
+        console.error(
+          error,
+          `Error: Could not fetch token data from reservoir for token${contract_address}:${token_id}`
+        );
+        return {
+          contract_address,
+          token_id,
+        };
+      }
+    );
 }
 
 type TokenResponse = {
