@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { isValidElement, useState } from "react";
+import { useState } from "react";
 import { useMutation } from "react-query";
 import addToWishlist, {
   AddToWishlistProps,
