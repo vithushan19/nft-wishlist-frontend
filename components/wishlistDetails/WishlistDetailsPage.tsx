@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useQuery } from "react-query";
 import fetchWishlist from "../../pages/api/fetchWishlist";
 import Button from "../ui/Button";
-import WishlistItemRow, { WishlistItemRowProps } from "./WishlistItemRow";
+import WishlistItemRow from "./WishlistItemRow";
 
 type WishlistDetailsPageProps = {
   wishlistId: string;

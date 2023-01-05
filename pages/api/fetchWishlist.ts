@@ -52,21 +52,3 @@ async function fetchTokenData(contract_address: string, token_id: string) {
       }
     );
 }
-
-type TokenResponse = {
-  tokens: Token[];
-};
-
-type Token = {
-  token: TokenData;
-};
-
-type TokenData = {
-  name: string;
-  image: string;
-  collection: CollectionData;
-};
-
-type CollectionData = {
-  name: string;
-};
